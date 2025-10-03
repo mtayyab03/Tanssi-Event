@@ -39,34 +39,6 @@ export default function RootLayout() {
           name="(screens)/Login/SplashScreen"
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="(screens)/Login/OnBoarding"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Login/LoginScreen"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Login/SignupScreen"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Login/PersonalDetails"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Login/ForgetPassword"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Login/OTPScreen"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Login/ResetPassword"
-          options={{ headerShown: false }}
-        />
 
         {/* Main */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -92,26 +64,12 @@ export default function RootLayout() {
         />
 
         {/* Profile */}
-        <Stack.Screen
-          name="(screens)/Profile/EditPersonalDetails"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Profile/MyItems"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Profile/ItemEdit"
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="(screens)/Profile/FavoriteScreen"
           options={{ headerShown: false }}
         />
-        <Stack.Screen
-          name="(screens)/Profile/ChangePassword"
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="(screens)/Profile/Languages"
           options={{ headerShown: false }}
