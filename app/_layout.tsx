@@ -17,14 +17,14 @@ import { useColorScheme } from "@/hooks/use-color-scheme";
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    PoppinsThin: require("../assets/fonts/Poppins-Thin.ttf"),
-    PoppinsLight: require("../assets/fonts/Poppins-Light.ttf"),
-    PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
-    PoppinsMedium: require("../assets/fonts/Poppins-Medium.ttf"),
-    PoppinsSemiBold: require("../assets/fonts/Poppins-SemiBold.ttf"),
-    PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
-    PoppinsExtraBold: require("../assets/fonts/Poppins-ExtraBold.ttf"),
-    PoppinsBlack: require("../assets/fonts/Poppins-Black.ttf"),
+    InterThin: require("../assets/fonts/Inter_18pt-Thin.ttf"),
+    InterLight: require("../assets/fonts/Inter_18pt-Light.ttf"),
+    InterRegular: require("../assets/fonts/Inter_18pt-Regular.ttf"),
+    InterMedium: require("../assets/fonts/Inter_18pt-Medium.ttf"),
+    InterSemiBold: require("../assets/fonts/Inter_18pt-SemiBold.ttf"),
+    InterBold: require("../assets/fonts/Inter_18pt-Bold.ttf"),
+    InterExtraBold: require("../assets/fonts/Inter_18pt-ExtraBold.ttf"),
+    InterBlack: require("../assets/fonts/Inter_18pt-Black.ttf"),
   });
 
   if (!loaded) {
@@ -42,33 +42,17 @@ export default function RootLayout() {
 
         {/* Main */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="(screens)/Main/ItemDetails"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Main/EventMapListView"
-          options={{ headerShown: false }}
-        />
+
         <Stack.Screen
           name="(screens)/Main/ChatScreen"
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="(screens)/Main/DriveToScreen"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="(screens)/Main/VisitSchedule"
+          name="(screens)/Main/EventsScreen"
           options={{ headerShown: false }}
         />
 
         {/* Profile */}
-
-        <Stack.Screen
-          name="(screens)/Profile/FavoriteScreen"
-          options={{ headerShown: false }}
-        />
 
         <Stack.Screen
           name="(screens)/Profile/Languages"

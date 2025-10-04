@@ -1,22 +1,18 @@
-import React, { useState, useRef } from "react";
-import { useRouter } from "expo-router";
+import React, { useRef, useEffect, useState } from "react";
 import {
+  Animated,
+  Modal,
   View,
   Text,
-  TextInput,
-  Image,
   TouchableOpacity,
-  StyleSheet,
   ScrollView,
+  StyleSheet,
+  PanResponder,
+  Dimensions,
+  Image,
 } from "react-native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { Feather, Ionicons, FontAwesome6 } from "@expo/vector-icons";
-
-// Components
-import AppModal from "@/components/common/AppModal";
-import RangeSelector from "@/components/common/RangeSelector";
-import { ThemedText } from "@/components/themed-text";
-import SavedFiltersModal from "./SavedFiltersModal";
 
 // constants
 import { Colors } from "@/constants/Colors";
@@ -24,361 +20,307 @@ import { FontFamily } from "@/constants/font";
 import icons from "@/constants/icons";
 import { fontSize } from "@/constants/fontUtils";
 
-type Props = {
-  modalVisible: boolean;
-  setModalVisible: (v: boolean) => void;
-  propertyTypes: string[];
-  additionFeature: string[];
-  onSubmit?: (filters: any) => void;
-  onCancel?: () => void;
-};
-
-export default function FilterModal({
-  modalVisible,
-  setModalVisible,
-  propertyTypes,
-  additionFeature,
-  onSubmit,
-  onCancel,
-}: Props) {
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
-  const [isSavedModalVisible, setSavedModalVisible] = useState(false);
-  const [savedFilters, setSavedFilters] = useState<any[]>([]);
-  const handleSaveFilter = (newFilter: any) => {
-    setSavedFilters((prev) => [...prev, newFilter]);
-  };
-  const handleDeleteFilter = (id: string) => {
-    setSavedFilters((prev) => prev.filter((f) => f.id !== id));
-  };
-
-  const handleToggle = (feature: string) => {
-    setSelectedFeatures((prev) =>
-      prev.includes(feature)
-        ? prev.filter((f) => f !== feature)
-        : [...prev, feature]
-    );
-  };
-  const handleApplyFilter = (filter: any) => {
-    console.log("Applying filter:", filter);
-    setSavedModalVisible(false);
-  };
-  const handleSubmit = () => {
-    const filters = {
-      selectedType,
-      selectedFeatures,
-      // TODO: collect values from RangeSelectors if you want to lift them up
-    };
-    onSubmit?.(filters);
-    setModalVisible(false);
-  };
-
-  const handleSave = () => {
-    const newFilter = {
-      id: Date.now().toString(),
-      name: `Filter ${new Date().toLocaleTimeString()}`,
-      type: selectedType,
-      features: selectedFeatures,
-    };
-
-    setSavedFilters((prev) => [...prev, newFilter]);
-    onSubmit?.(newFilter);
-
-    // Close filter modal and open saved modal
-    setModalVisible(false);
-    setSavedModalVisible(true);
-  };
-
-  return (
-    <AppModal
-      modalVisible={modalVisible}
-      setModalVisible={setModalVisible}
-      RecStyle={{ width: "90%", height: "80%" }}
-    >
-      <ScrollView
-        contentContainerStyle={{
-          alignItems: "center",
-          paddingBottom: RFPercentage(3),
-        }}
-        style={{ width: "100%" }}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{ width: "100%" }}>
-          {/* Header */}
-          <View
-            style={{
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => setSavedModalVisible(true)}
-            >
-              <Text
-                style={{
-                  fontFamily: FontFamily.medium,
-                  fontSize: fontSize(18),
-                  color: Colors.blue,
-                }}
-              >
-                Saved
-              </Text>
-            </TouchableOpacity>
-            <Text
-              style={[
-                styles.name,
-                { fontFamily: FontFamily.medium, fontSize: fontSize(18) },
-              ]}
-            >
-              Filters
-            </Text>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              onPress={() => setModalVisible(false)}
-            >
-              <Feather
-                color={Colors.lightBlack}
-                style={{ marginRight: RFPercentage(1) }}
-                size={24}
-                name="x"
-              />
-            </TouchableOpacity>
-          </View>
-
-          {/* Range Selectors */}
-          <RangeSelector
-            label="Price ($)"
-            min={50000}
-            max={5000000}
-            step={50000}
-          />
-          <RangeSelector label="Bedrooms" min={1} max={10} step={1} />
-          <RangeSelector label="Full Baths" min={1} max={10} step={1} />
-          <RangeSelector label="Half Baths" min={1} max={10} step={1} />
-          <RangeSelector
-            label="Living area (sqft)"
-            min={1000}
-            max={50000}
-            step={100}
-          />
-
-          {/* Property Types */}
-          <View style={styles.propertyTypeRow}>
-            {propertyTypes.map((type, index) => {
-              const isSelected = selectedType === type;
-              return (
-                <TouchableOpacity
-                  activeOpacity={0.7}
-                  key={index}
-                  onPress={() => setSelectedType(type)}
-                  style={[
-                    styles.propertyTypeBtn,
-                    {
-                      backgroundColor: isSelected ? Colors.blue : Colors.stroke,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={{
-                      color: isSelected ? Colors.white : Colors.darkGrey,
-                      fontFamily: FontFamily.medium,
-                      fontSize: fontSize(8),
-                    }}
-                  >
-                    {type}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          {/* Additional Features */}
-          <View style={{ width: "90%", marginTop: RFPercentage(1) }}>
-            <ThemedText
-              type="Black16Reg"
-              style={{ fontFamily: FontFamily.medium, fontSize: fontSize(16) }}
-            >
-              Additional features :
-            </ThemedText>
-          </View>
-          <View style={styles.featuresRow}>
-            {additionFeature.map((feature, index) => {
-              const isChecked = selectedFeatures.includes(feature);
-              return (
-                <View key={index} style={styles.featureItem}>
-                  <TouchableOpacity
-                    onPress={() => handleToggle(feature)}
-                    activeOpacity={0.7}
-                    style={[
-                      styles.checkedContainer,
-                      {
-                        backgroundColor: isChecked ? Colors.blue : Colors.white,
-                      },
-                    ]}
-                  >
-                    {isChecked && (
-                      <FontAwesome6
-                        name="check"
-                        size={12}
-                        color={Colors.white}
-                      />
-                    )}
-                  </TouchableOpacity>
-                  <Text
-                    style={{
-                      color: Colors.darkGrey,
-                      fontFamily: FontFamily.regular,
-                      fontSize: fontSize(12),
-                      marginLeft: RFPercentage(1),
-                    }}
-                  >
-                    {feature}
-                  </Text>
-                </View>
-              );
-            })}
-          </View>
-
-          {/* Buttons */}
-          <View style={styles.buttonRow}>
-            <TouchableOpacity
-              style={[styles.btn, { backgroundColor: "#ccc" }]}
-              onPress={onCancel ?? (() => setModalVisible(false))}
-            >
-              <Text style={styles.btnText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.btn, { backgroundColor: Colors.blue }]}
-              onPress={handleSave}
-            >
-              <Text style={styles.btnText}>Save Filter</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.btn, { backgroundColor: Colors.blue }]}
-              onPress={handleSubmit}
-            >
-              <Text style={styles.btnText}>Submit</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-
-      <SavedFiltersModal
-        modalVisible={isSavedModalVisible}
-        setModalVisible={setSavedModalVisible}
-        savedFilters={savedFilters}
-        onApply={handleApplyFilter}
-        onDelete={handleDeleteFilter}
-      />
-    </AppModal>
-  );
+interface FilterModalProps {
+  visible: boolean;
+  onClose: () => void;
 }
 
+const screenHeight = Dimensions.get("window").height;
+
+const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose }) => {
+  const translateY = useRef(new Animated.Value(screenHeight)).current;
+  const [selectedCountry, setSelectedCountry] = useState("France (8)");
+  const [selectedDance, setSelectedDance] = useState("Bachata (2)");
+  const [selectedOtherCity, setSelectedOtherCity] = useState("Lyon (2)");
+  const offset = useRef(0);
+
+  // Animate open/close
+  useEffect(() => {
+    Animated.timing(translateY, {
+      toValue: visible ? 0 : screenHeight,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      if (!visible) translateY.setValue(screenHeight);
+    });
+  }, [visible]);
+
+  // Pan gesture for drag-down
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) => gesture.dy > 5, // Start responding when dragged downward
+      onPanResponderMove: (_, gesture) => {
+        if (gesture.dy > 0) {
+          translateY.setValue(gesture.dy);
+        }
+      },
+      onPanResponderRelease: (_, gesture) => {
+        if (gesture.dy > 150) {
+          // Drag far enough → close
+          Animated.timing(translateY, {
+            toValue: screenHeight,
+            duration: 200,
+            useNativeDriver: true,
+          }).start(onClose);
+        } else {
+          // Snap back to open
+          Animated.spring(translateY, {
+            toValue: 0,
+            useNativeDriver: true,
+          }).start();
+        }
+      },
+    })
+  ).current;
+
+  const [expanded, setExpanded] = useState(true); // initially open
+  const [expanded1, setExpanded1] = useState(true); // initially open
+  const [expanded2, setExpanded2] = useState(true); // initially open
+
+  const countries = ["France (8)", "Spain (4)", "Belgium (3)", "Swiss (1)"];
+  const otherCity = [
+    "Bordeaux (1)",
+    "Limoges (1)",
+    "Lyon (2)",
+    "Marseille (1)",
+  ];
+  const danceCategory = [
+    "Bachata (2)",
+    "Kizomba (1)",
+    "Salsa (1)",
+    "Brazilian Zouk (1)",
+  ];
+
+  const CheckBox = ({ label, checked, onPress }: any) => (
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={styles.checkboxRow}
+      onPress={onPress}
+    >
+      <View style={[styles.checkboxBox, checked && styles.checkboxChecked]}>
+        {checked && <Text style={styles.checkmark}>✓</Text>}
+      </View>
+      <Text style={styles.checkboxLabel}>{label}</Text>
+    </TouchableOpacity>
+  );
+
+  if (!visible) return null;
+
+  return (
+    <Modal transparent animationType="none">
+      <TouchableOpacity
+        style={styles.overlay}
+        activeOpacity={1}
+        onPress={onClose}
+      >
+        <TouchableOpacity activeOpacity={1}>
+          <Animated.View
+            {...panResponder.panHandlers}
+            style={[styles.modalContainer, { transform: [{ translateY }] }]}
+          >
+            <View style={styles.headerBar} />
+
+            <ScrollView contentContainerStyle={styles.contentContainer}>
+              <Text style={styles.sectionTitle}>Current Location</Text>
+              <TouchableOpacity style={styles.locationBox}>
+                <Image source={icons.locationt} style={styles.avatar} />
+                <Text style={styles.locationText}> 100 km Radius</Text>
+              </TouchableOpacity>
+              <View style={styles.container}>
+                <Text style={styles.sectionTitle}>Country</Text>
+
+                <TouchableOpacity
+                  onPress={() => setExpanded(!expanded)}
+                  activeOpacity={0.7}
+                >
+                  <MaterialIcons
+                    name={
+                      expanded ? "keyboard-arrow-down" : "keyboard-arrow-up"
+                    }
+                    size={30}
+                    color={Colors.pureWhite}
+                  />
+                </TouchableOpacity>
+              </View>
+              {expanded &&
+                countries.map((country) => (
+                  <CheckBox
+                    key={country}
+                    label={country}
+                    checked={selectedCountry === country}
+                    onPress={() => setSelectedCountry(country)}
+                  />
+                ))}
+              <View style={styles.line} />
+              <View style={styles.container}>
+                <Text style={[styles.sectionTitle, { marginTop: 5 }]}>
+                  Other City
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setExpanded2(!expanded2)}
+                  activeOpacity={0.7}
+                >
+                  <MaterialIcons
+                    name={
+                      expanded2 ? "keyboard-arrow-down" : "keyboard-arrow-up"
+                    }
+                    size={30}
+                    color={Colors.pureWhite}
+                  />
+                </TouchableOpacity>
+              </View>
+              {expanded2 &&
+                otherCity.map((city) => (
+                  <CheckBox
+                    key={city}
+                    label={city}
+                    checked={selectedOtherCity === city}
+                    onPress={() => setSelectedOtherCity(city)}
+                  />
+                ))}
+              <View style={styles.line} />
+              <View style={styles.container}>
+                <Text style={[styles.sectionTitle, { marginTop: 5 }]}>
+                  Dance
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setExpanded1(!expanded1)}
+                  activeOpacity={0.7}
+                >
+                  <MaterialIcons
+                    name={
+                      expanded1 ? "keyboard-arrow-down" : "keyboard-arrow-up"
+                    }
+                    size={30}
+                    color={Colors.pureWhite}
+                  />
+                </TouchableOpacity>
+              </View>
+              {expanded1 &&
+                danceCategory.map((dance) => (
+                  <CheckBox
+                    key={dance}
+                    label={dance}
+                    checked={selectedDance === dance}
+                    onPress={() => setSelectedDance(dance)}
+                  />
+                ))}
+
+              <TouchableOpacity style={styles.applyButton} onPress={onClose}>
+                <Text
+                  style={{
+                    color: Colors.pureWhite,
+                    fontFamily: FontFamily.medium,
+                  }}
+                >
+                  Apply Filters
+                </Text>
+              </TouchableOpacity>
+            </ScrollView>
+          </Animated.View>
+        </TouchableOpacity>
+      </TouchableOpacity>
+    </Modal>
+  );
+};
+
+export default FilterModal;
+
 const styles = StyleSheet.create({
-  name: { textAlign: "center", marginVertical: RFPercentage(2) },
-  propertyTypeRow: {
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "flex-end",
+  },
+  modalContainer: {
+    backgroundColor: "#9B5BFF",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 10,
+    maxHeight: "100%",
+  },
+  headerBar: {
+    width: 50,
+    height: 4,
+    backgroundColor: "#fff",
+    borderRadius: 2,
+    alignSelf: "center",
+    marginBottom: 10,
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 40,
+  },
+  sectionTitle: {
+    fontFamily: FontFamily.semiBold,
+    fontSize: 16,
+    color: "#fff",
+    marginTop: 15,
+    marginBottom: 8,
+  },
+  locationBox: {
+    backgroundColor: "#A46AFF",
+    borderRadius: 10,
+    padding: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    borderWidth: RFPercentage(0.1),
+    borderColor: "#9868FF",
+  },
+  locationText: {
+    color: "#fff",
+    fontFamily: FontFamily.regular,
+    marginLeft: RFPercentage(0.5),
+  },
+  checkboxRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 6,
+  },
+  checkboxBox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  checkboxChecked: {
+    backgroundColor: "#fff",
+  },
+  checkmark: {
+    color: "#9B5BFF",
+    fontWeight: "700",
+  },
+  checkboxLabel: {
+    color: "#fff",
+    fontSize: 15,
+    fontFamily: FontFamily.regular,
+  },
+  applyButton: {
+    backgroundColor: "#7B3FFF",
+    paddingVertical: 12,
+    borderRadius: 25,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  line: {
+    width: "100%",
+    height: RFPercentage(0.1),
+    backgroundColor: "#9868FF",
+    borderRadius: RFPercentage(0.5),
+    marginVertical: RFPercentage(1.5),
+  },
+  container: {
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    flexWrap: "wrap",
-    marginTop: RFPercentage(2),
-  },
-  propertyTypeBtn: {
-    paddingHorizontal: RFPercentage(1.5),
-    paddingVertical: RFPercentage(1),
-    borderRadius: RFPercentage(0.5),
-    marginRight: RFPercentage(0.5),
-    marginBottom: RFPercentage(1),
-  },
-
-  //new
-  label: {
-    fontSize: RFPercentage(2),
-    fontFamily: FontFamily.medium,
-    color: Colors.lightBlack,
-    marginVertical: RFPercentage(1),
-  },
-  rangeRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: RFPercentage(1),
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: Colors.stroke,
-    borderRadius: 5,
-    padding: 5,
-    minWidth: 70,
-    textAlign: "center",
-    marginHorizontal: 5,
-  },
-  rangeLabels: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: RFPercentage(2),
-  },
-  typeRow: {
-    flexDirection: "row",
     justifyContent: "space-between",
   },
-  typeButton: {
-    flex: 1,
-    paddingVertical: 10,
-    marginHorizontal: 5,
-    borderRadius: 8,
-    backgroundColor: "#eee",
-    alignItems: "center",
-  },
-  typeText: {
-    fontSize: RFPercentage(1.8),
-    fontFamily: FontFamily.medium,
-    color: Colors.lightBlack,
-  },
-  featuresRow: {
-    flexDirection: "row",
-    marginVertical: 10,
-  },
-  featureItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 20,
-  },
-  featureText: {
-    marginLeft: 5,
-    fontSize: RFPercentage(1.8),
-    fontFamily: FontFamily.medium,
-    color: Colors.lightBlack,
-  },
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: RFPercentage(4),
-  },
-  btn: {
-    flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 10,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  btnText: {
-    color: Colors.white,
-    fontFamily: FontFamily.semiBold,
-    fontSize: RFPercentage(2),
-  },
-  checkedContainer: {
-    width: RFPercentage(2),
-    height: RFPercentage(2),
-    borderWidth: 1,
-    borderColor: Colors.darkGrey,
-    borderRadius: 3,
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    marginTop: RFPercentage(0.2),
+  avatar: {
+    width: 20,
+    height: 20,
   },
 });

@@ -58,27 +58,6 @@ const Profile: React.FC<ProfileScreenProps> = () => {
       <View style={{ marginTop: RFPercentage(4) }} />
 
       <ProfileList
-        icon={icons.personal}
-        title="Personal Details"
-        onpress={() => router.push("/(screens)/Profile/EditPersonalDetails")}
-      />
-      <ProfileList
-        icon={icons.item}
-        title="My Items"
-        onpress={() => router.push("/(screens)/Profile/MyItems")}
-      />
-      <ProfileList
-        icon={icons.favorite}
-        title="Favorite"
-        onpress={() => router.push("/(screens)/Profile/FavoriteScreen")}
-      />
-
-      <ProfileList
-        icon={icons.lock}
-        title="Change Password "
-        onpress={() => router.push("/(screens)/Profile/ChangePassword")}
-      />
-      <ProfileList
         icon={icons.language}
         title="Languages"
         onpress={() => router.push("/(screens)/Profile/Languages")}
@@ -124,7 +103,7 @@ const Profile: React.FC<ProfileScreenProps> = () => {
         }
         buttonpri={"Confirm"}
         buttonsec={"Cancel"}
-        onpressPri={() => router.replace("/(screens)/Login/LoginScreen")}
+        onpressPri={() => {}}
         onpressSec={() => {
           setIsModalVisible(false);
         }}

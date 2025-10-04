@@ -1,10 +1,10 @@
 export const FontFamily = {
-  thin: "PoppinsThin",
-  light: "PoppinsLight",
-  regular: "PoppinsRegular",
-  medium: "PoppinsMedium",
-  semiBold: "PoppinsSemiBold",
-  bold: "PoppinsBold",
-  extraBold: "PoppinsExtraBold",
-  black: "PoppinsBlack",
+  thin: "InterThin",
+  light: "InterLight",
+  regular: "InterRegular",
+  medium: "InterMedium",
+  semiBold: "InterSemiBold",
+  bold: "InterBold",
+  extraBold: "InterExtraBold",
+  black: "InterBlack",
 };

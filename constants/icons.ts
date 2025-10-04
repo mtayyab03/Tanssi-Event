@@ -33,7 +33,38 @@ const house1 = require("../assets/images/icons/house1.png");
 const house2 = require("../assets/images/icons/house2.png");
 const house3 = require("../assets/images/icons/house3.png");
 
+const home = require("../assets/images/icons/home.png");
+const homeGrey = require("../assets/images/icons/homeGrey.png");
+const chat = require("../assets/images/icons/chat.png");
+const chatgrey = require("../assets/images/icons/chatgrey.png");
+const proficon = require("../assets/images/icons/proficon.png");
+const proficonGrey = require("../assets/images/icons/proficonGrey.png");
+
+const event1 = require("../assets/images/icons/event1.png");
+const event2 = require("../assets/images/icons/event2.png");
+const event3 = require("../assets/images/icons/event3.png");
+const event4 = require("../assets/images/icons/event4.png");
+const event5 = require("../assets/images/icons/event5.png");
+const event6 = require("../assets/images/icons/event6.png");
+
+const event7 = require("../assets/images/icons/event7.png");
+const event8 = require("../assets/images/icons/event8.png");
+const event9 = require("../assets/images/icons/event9.png");
+const event10 = require("../assets/images/icons/event10.png");
+const event11 = require("../assets/images/icons/event11.png");
+const event12 = require("../assets/images/icons/event12.png");
+const locationt = require("../assets/images/icons/locationt.png");
+
+const bachata = require("../assets/images/icons/bachata.png");
+const kizomba = require("../assets/images/icons/kizomba.png");
+const salsa = require("../assets/images/icons/salsa.png");
+const oops = require("../assets/images/icons/oops.png");
+const hprofile = require("../assets/images/icons/hprofile.png");
+const menu = require("../assets/images/icons/menu.png");
+
 const mask = require("../assets/images/icons/mask.png");
+const search = require("../assets/images/icons/search.png");
+const filter = require("../assets/images/icons/filter.png");
 
 const logout = require("../assets/images/icons/logout.png");
 export default {
@@ -47,6 +78,33 @@ export default {
   house2,
   mask,
   house3,
+  home,
+  search,
+  filter,
+  homeGrey,
+  chat,
+  chatgrey,
+  proficon,
+  proficonGrey,
+  event1,
+  event2,
+  event3,
+  event4,
+  event5,
+  event6,
+  event7,
+  event8,
+  event9,
+  event10,
+  event11,
+  event12,
+  bachata,
+  kizomba,
+  salsa,
+  oops,
+  hprofile,
+  menu,
+  locationt,
 
   web,
   send,

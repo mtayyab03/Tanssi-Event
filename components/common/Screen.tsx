@@ -18,7 +18,7 @@ const Screen: React.FC<ScreenProps> = ({
 }) => {
   return (
     <SafeAreaView style={[styles.screen, style]}>
-      <StatusBar backgroundColor={statusBarColor} barStyle="dark-content" />
+      <StatusBar backgroundColor={statusBarColor} barStyle="light-content" />
 
       {children}
     </SafeAreaView>

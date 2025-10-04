@@ -31,15 +31,14 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 12,
         },
-        tabBarIcon: ({ color, focused }) => {
-          let iconName: keyof typeof Ionicons.glyphMap;
+        tabBarIcon: ({ focused }) => {
+          let iconSrc;
 
           if (route.name === "Home")
-            iconName = focused ? "home" : "home-outline";
+            iconSrc = focused ? icons.home : icons.homeGrey;
           else if (route.name === "Chat")
-            iconName = focused ? "chatbubble" : "chatbubble-outline";
-          else iconName = focused ? "person" : "person-outline";
-
+            iconSrc = focused ? icons.chat : icons.chatgrey;
+          else iconSrc = focused ? icons.proficon : icons.proficonGrey;
           return (
             <View style={{ alignItems: "center" }}>
               {focused && (
@@ -61,7 +60,7 @@ export default function TabLayout() {
                   <View
                     style={{
                       position: "absolute",
-                      top: -8,
+                      top: -7,
                       width: 22,
                       height: 3,
                       borderRadius: 2,
@@ -70,7 +69,14 @@ export default function TabLayout() {
                   />
                 </>
               )}
-              <Ionicons name={iconName} size={26} color={color} />
+              <Image
+                source={iconSrc}
+                style={{
+                  width: 26,
+                  height: 26,
+                  resizeMode: "contain",
+                }}
+              />
             </View>
           );
         },
