@@ -1,48 +1,120 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  View,
+  Text,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons, MaterialIcons, FontAwesome6 } from "@expo/vector-icons";
 
 // constants
 import { Colors } from "@/constants/Colors";
 import { FontFamily } from "@/constants/font";
 import icons from "@/constants/icons";
 import { fontSize } from "@/constants/fontUtils";
-
-// Components
+//Components
 import Screen from "@/components/common/Screen";
-import AppHeader from "@/components/common/AppHeader";
 import AppButton from "@/components/common/AppButton";
-import RadioButton from "@/components/common/RadioButton";
 
 const Languages = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [selectedLang, setSelectedLang] = useState<string | null>(null);
   const handleBack = () => {
     router.back();
   };
 
-  const options = ["English", "Spanish"];
-  const [selectedName, setSelectedName] = useState(options[0]);
+  const languages = [
+    { id: "1", name: "Spanish", flag: "🇪🇸" },
+    { id: "2", name: "Russian", flag: "🇷🇺" },
+    { id: "3", name: "French", flag: "🇫🇷" },
+    { id: "4", name: "English", flag: "🇬🇧" },
+    { id: "5", name: "Bengali", flag: "🇧🇩" },
+    { id: "6", name: "Hindi", flag: "🇮🇳" },
+    { id: "7", name: "Portuguese", flag: "🇵🇹" },
+  ];
   return (
-    <Screen style={styles.screen}>
-      <AppHeader title="Languages" onPress={() => handleBack()} />
+    <LinearGradient
+      colors={[Colors.bgBlue, Colors.bgBlack]}
+      style={styles.gradient}
+    >
+      <Screen style={styles.container}>
+        <View style={styles.header}>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity onPress={handleBack} style={styles.iconButton}>
+              <MaterialIcons
+                name="arrow-back-ios-new"
+                size={20}
+                color={Colors.white}
+              />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>Language</Text>
+          </View>
+          <View style={styles.headerRight}>
+            <TouchableOpacity style={styles.iconButton}>
+              <Image source={icons.search} style={styles.avatar} />
+            </TouchableOpacity>
+          </View>
+        </View>
 
-      <View style={{ marginTop: RFPercentage(3) }} />
+        <View style={{ width: "90%", marginTop: RFPercentage(4) }}>
+          <Text style={styles.titleText}>Choose your preferred Language</Text>
+        </View>
+        {languages.map((lang) => {
+          const isSelected = selectedLang === lang.id;
+          return (
+            <TouchableOpacity
+              key={lang.id}
+              activeOpacity={0.8}
+              style={[
+                styles.langContainer,
+                { borderColor: isSelected ? Colors.purple : Colors.stroke },
+              ]}
+              onPress={() => setSelectedLang(lang.id)}
+            >
+              {/* Flag emoji */}
+              <Text style={styles.flagText}>{lang.flag}</Text>
 
-      {options.map((name) => (
-        <RadioButton
-          key={name}
-          name={name}
-          selectedName={selectedName}
-          onpress={() => setSelectedName(name)}
-        />
-      ))}
+              {/* Language name */}
+              <View style={{ marginLeft: RFPercentage(2), width: "70%" }}>
+                <Text
+                  style={[
+                    styles.titleText,
+                    { fontFamily: FontFamily.regular, color: Colors.white },
+                  ]}
+                >
+                  {lang.name}
+                </Text>
+              </View>
 
-      {/* button */}
-      <TouchableOpacity style={styles.loginbutton} activeOpacity={0.7}>
-        <AppButton title="Save" buttonColor={Colors.blue} />
-      </TouchableOpacity>
-    </Screen>
+              {/* Checkmark only when selected */}
+              {isSelected && (
+                <View style={styles.checkedContainer}>
+                  <FontAwesome6 name="check" size={12} color={Colors.white} />
+                </View>
+              )}
+            </TouchableOpacity>
+          );
+        })}
+        {/* button */}
+        <TouchableOpacity
+          onPress={() => router.push("/(tabs)/Home")}
+          style={styles.loginbutton}
+          activeOpacity={0.7}
+        >
+          <AppButton
+            title="Done"
+            buttonColor={Colors.purple}
+            loading={loading}
+          />
+        </TouchableOpacity>
+      </Screen>
+    </LinearGradient>
   );
 };
 
@@ -61,5 +133,94 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(3),
     position: "absolute",
     bottom: RFPercentage(5),
+  },
+  container: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    // alignItems: "center",
+    // paddingHorizontal: 15,
+  },
+  gradient: {
+    flex: 1,
+  },
+  aboutDesc: {
+    color: "#BACDF4",
+    fontFamily: FontFamily.regular,
+    fontSize: fontSize(12),
+    lineHeight: 25,
+  },
+  title: {
+    fontFamily: FontFamily.semiBold,
+    color: Colors.pureWhite,
+    fontSize: fontSize(14),
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 1,
+    width: "100%",
+    justifyContent: "space-between",
+    paddingHorizontal: 15,
+  },
+  headerTitle: {
+    fontSize: fontSize(16),
+    fontFamily: FontFamily.semiBold,
+    color: Colors.pureWhite,
+    marginLeft: RFPercentage(1.5),
+  },
+  titleText: {
+    fontSize: fontSize(14),
+    fontFamily: FontFamily.semiBold,
+    color: Colors.pureWhite,
+  },
+
+  headerRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  iconButton: {
+    backgroundColor: Colors.primary,
+    borderWidth: RFPercentage(0.1),
+    borderColor: Colors.stroke,
+    padding: 8,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  avatar: {
+    width: 24,
+    height: 24,
+  },
+  langContainer: {
+    width: "90%",
+    backgroundColor: Colors.primary,
+    borderWidth: RFPercentage(0.1),
+    borderColor: Colors.purple,
+    padding: RFPercentage(1.5),
+    justifyContent: "flex-start",
+    borderRadius: RFPercentage(1.4),
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: RFPercentage(2.5),
+    overflow: "hidden",
+  },
+  checkedContainer: {
+    width: RFPercentage(2),
+    height: RFPercentage(2),
+    borderWidth: 1,
+    borderColor: Colors.darkGrey,
+    borderBottomLeftRadius: 7,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    backgroundColor: Colors.purple,
+    position: "absolute",
+    right: 0,
+    top: 0,
+  },
+  flagText: {
+    fontSize: RFPercentage(3.2),
   },
 });

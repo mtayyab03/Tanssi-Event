@@ -61,6 +61,8 @@ const salsa = require("../assets/images/icons/salsa.png");
 const oops = require("../assets/images/icons/oops.png");
 const hprofile = require("../assets/images/icons/hprofile.png");
 const menu = require("../assets/images/icons/menu.png");
+const info = require("../assets/images/icons/info.png");
+const promote = require("../assets/images/icons/promote.png");
 
 const mask = require("../assets/images/icons/mask.png");
 const search = require("../assets/images/icons/search.png");
@@ -74,6 +76,7 @@ export default {
   favorite,
   location,
   adbanner,
+  promote,
   house1,
   house2,
   mask,
@@ -111,7 +114,7 @@ export default {
   mail,
 
   personal,
-
+  info,
   item,
   lock,
   faq,

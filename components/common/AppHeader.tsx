@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet, View, Text } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
-import { Feather, Ionicons, FontAwesome } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
 
 // Components
 import { ThemedText } from "@/components/themed-text";
@@ -19,31 +19,15 @@ type AppHeaderProps = {
 
 const AppHeader: React.FC<AppHeaderProps> = ({ title, onPress }) => {
   return (
-    <View
-      style={{
-        width: "90%",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: RFPercentage(1),
-      }}
-    >
-      <TouchableOpacity
-        activeOpacity={0.7}
-        style={styles.headerContainer}
-        onPress={onPress}
-      >
-        <Feather name="arrow-left" size={24} color={Colors.blacky} />
+    <View style={styles.header}>
+      <TouchableOpacity onPress={onPress} style={styles.iconButton}>
+        <MaterialIcons
+          name="arrow-back-ios-new"
+          size={20}
+          color={Colors.white}
+        />
       </TouchableOpacity>
-      <ThemedText
-        type="Black16Reg"
-        style={{
-          fontFamily: FontFamily.medium,
-          fontSize: fontSize(18),
-        }}
-      >
-        {title}
-      </ThemedText>
+      <Text style={styles.headerTitle}>{title}</Text>
     </View>
   );
 };
@@ -55,5 +39,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "absolute",
     left: 0,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 1,
+    width: "90%",
+  },
+  iconButton: {
+    backgroundColor: Colors.primary,
+    borderWidth: RFPercentage(0.1),
+    borderColor: Colors.stroke,
+    padding: 8,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  headerTitle: {
+    fontSize: fontSize(16),
+    fontFamily: FontFamily.semiBold,
+    color: "#fff",
+    marginLeft: RFPercentage(1.5),
   },
 });

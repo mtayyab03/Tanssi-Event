@@ -29,7 +29,7 @@ const ProfileList: React.FC<ProfileListProps> = ({ icon, title, onpress }) => {
         activeOpacity={0.7}
         onPress={onpress}
         style={{
-          width: "80%",
+          width: "85%",
           alignItems: "center",
           flexDirection: "row",
         }}
@@ -38,10 +38,10 @@ const ProfileList: React.FC<ProfileListProps> = ({ icon, title, onpress }) => {
           style={{ width: RFPercentage(3), height: RFPercentage(3) }}
           source={icon}
         />
-        <View style={{ marginLeft: RFPercentage(1.4) }}>
+        <View style={{ marginLeft: RFPercentage(2) }}>
           <Text
             style={{
-              color: Colors.lightBlack,
+              color: Colors.white,
               fontFamily: FontFamily.medium,
               fontSize: fontSize(14),
             }}
@@ -57,21 +57,11 @@ const ProfileList: React.FC<ProfileListProps> = ({ icon, title, onpress }) => {
         >
           <MaterialIcons
             name="arrow-forward-ios"
-            size={24}
-            color={Colors.lightBlack}
+            size={20}
+            color={Colors.white}
           />
         </View>
       </TouchableOpacity>
-
-      <View
-        style={{
-          width: "80%",
-          height: RFPercentage(0.1),
-          backgroundColor: Colors.lightGrey,
-          borderRadius: RFPercentage(0.5),
-          marginVertical: RFPercentage(1.8),
-        }}
-      />
     </>
   );
 };

@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   extraText: {
     color: Colors.white,
-    fontSize: RFPercentage(1),
+    fontSize: RFPercentage(0.8),
     fontFamily: FontFamily.bold,
   },
   extraBadge: {

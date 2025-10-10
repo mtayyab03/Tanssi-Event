@@ -44,10 +44,6 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 
         <Stack.Screen
-          name="(screens)/Main/ChatScreen"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="(screens)/Main/EventsScreen"
           options={{ headerShown: false }}
         />
@@ -63,7 +59,11 @@ export default function RootLayout() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="(screens)/Profile/TermsCondition"
+          name="(screens)/Profile/AboutScreen"
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="(screens)/Profile/Packages"
           options={{ headerShown: false }}
         />
 

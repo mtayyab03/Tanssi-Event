@@ -29,11 +29,8 @@ export default function AppButton({
   buttonStyle,
 }: AppButtonProps) {
   return (
-    <LinearGradient
-      colors={[Colors.lightBlue, Colors.blue]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}
-      style={[styles.button, buttonStyle]}
+    <View
+      style={[styles.button, buttonStyle, { backgroundColor: buttonColor }]}
     >
       {!loading ? (
         <ThemedText type="button" style={styles.buttontext}>
@@ -42,7 +39,7 @@ export default function AppButton({
       ) : (
         <ActivityIndicator color={Colors.pureWhite} />
       )}
-    </LinearGradient>
+    </View>
   );
 }
 
@@ -57,8 +54,8 @@ const styles = StyleSheet.create({
   },
   buttontext: {
     color: Colors.white,
-    fontSize: fontSize(16),
-    fontFamily: FontFamily.medium,
+    fontSize: fontSize(15),
+    fontFamily: FontFamily.semiBold,
     marginBottom: RFPercentage(0.4),
   },
 });

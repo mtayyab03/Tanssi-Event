@@ -36,7 +36,7 @@ export default function TabLayout() {
 
           if (route.name === "Home")
             iconSrc = focused ? icons.home : icons.homeGrey;
-          else if (route.name === "Chat")
+          else if (route.name === "AddEvent")
             iconSrc = focused ? icons.chat : icons.chatgrey;
           else iconSrc = focused ? icons.proficon : icons.proficonGrey;
           return (
@@ -83,7 +83,7 @@ export default function TabLayout() {
       })}
     >
       <Tabs.Screen name="Home" options={{ title: "Home" }} />
-      <Tabs.Screen name="Chat" options={{ title: "Message" }} />
+      <Tabs.Screen name="AddEvent" options={{ title: "Add Event" }} />
       <Tabs.Screen name="Profile" options={{ title: "Profile" }} />
     </Tabs>
   );

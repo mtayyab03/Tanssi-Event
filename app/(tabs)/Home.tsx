@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 // Components
 import Screen from "@/components/common/Screen";
@@ -13,7 +14,6 @@ import { Colors } from "@/constants/Colors";
 import { FontFamily } from "@/constants/font";
 import icons from "@/constants/icons";
 import { fontSize } from "@/constants/fontUtils";
-import { RFPercentage } from "react-native-responsive-fontsize";
 import {
   eventDataHome,
   eventData,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
   eventImage: {
     width: "100%",
-    height: fontSize(85),
+    height: fontSize(100),
     borderRadius: 12,
   },
   eventTitle: {

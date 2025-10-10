@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   eventImage: {
     width: "100%",
-    height: RFPercentage(21.5),
+    height: RFPercentage(24.5),
     borderRadius: 12,
   },
   eventTitle: {
