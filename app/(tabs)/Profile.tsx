@@ -16,6 +16,12 @@ import ProfileList from "@/components/Specific/ProfileList";
 
 const Profile = () => {
   const router = useRouter();
+  const handleNavigate = (type: "country" | "international") => {
+    router.push({
+      pathname: "/(screens)/Profile/Packages",
+      params: { type },
+    });
+  };
   return (
     <Screen style={styles.container}>
       <View
@@ -60,7 +66,7 @@ const Profile = () => {
 
       <View style={{ marginTop: RFPercentage(3) }} />
       <TouchableOpacity
-        onPress={() => router.push("/(screens)/Profile/Packages")}
+        onPress={() => handleNavigate("international")}
         activeOpacity={0.7}
         style={styles.promoteContainer}
       >
@@ -72,7 +78,11 @@ const Profile = () => {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity activeOpacity={0.7} style={styles.promoteContainer}>
+      <TouchableOpacity
+        onPress={() => handleNavigate("country")}
+        activeOpacity={0.7}
+        style={styles.promoteContainer}
+      >
         <Image source={icons.promote} style={styles.avatar} />
         <View style={{ marginLeft: RFPercentage(2), width: "75%" }}>
           <Text style={[styles.headerTitle, { fontSize: fontSize(12) }]}>

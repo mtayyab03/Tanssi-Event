@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import {
   Image,
   TouchableOpacity,
@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { LinearGradient } from "expo-linear-gradient";
-import { Ionicons, MaterialIcons, FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 // constants
 import { Colors } from "@/constants/Colors";
@@ -23,15 +23,32 @@ import AppHeader from "@/components/common/AppHeader";
 import AppButton from "@/components/common/AppButton";
 const Packages = () => {
   const router = useRouter();
+  const { type } = useLocalSearchParams<{ type?: string }>(); // 👈 get param here
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedPack, setSelectedPack] = useState<string | null>(null);
   const handleBack = () => {
     router.back();
   };
-  const Packages = [
-    { id: "1", name: "Basic", price: "€49,99" },
-    { id: "2", name: "Premium", price: "€99,99" },
-  ];
+
+  const handleBuyNow = () => {
+    if (!selectedPack) return; // Require selection before navigating
+
+    if (type === "country") {
+      router.push("/(screens)/Profile/DanceType");
+    } else {
+      router.push("/(screens)/Profile/DetailPage");
+    }
+  };
+  const Packages =
+    type === "country"
+      ? [
+          { id: "1", name: "Basic", price: "€29,99" },
+          { id: "2", name: "Premium", price: "€49,99" },
+        ]
+      : [
+          { id: "1", name: "Basic", price: "€49,99" },
+          { id: "2", name: "Premium", price: "€99,99" },
+        ];
   return (
     <LinearGradient
       colors={[Colors.bgBlue, Colors.bgBlack]}
@@ -43,7 +60,9 @@ const Packages = () => {
 
         <View style={{ width: "70%", marginVertical: RFPercentage(5) }}>
           <Text style={styles.maintitleText}>
-            Promote an event internationally in Top Events
+            {type === "country"
+              ? "Promote an event in your country on the dance page"
+              : "Promote an event internationally in Top Events"}
           </Text>
         </View>
 
@@ -101,7 +120,7 @@ const Packages = () => {
         </View>
         {/* button */}
         <TouchableOpacity
-          onPress={() => router.push("/(tabs)/Home")}
+          onPress={handleBuyNow}
           style={styles.loginbutton}
           activeOpacity={0.7}
         >

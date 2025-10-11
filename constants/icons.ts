@@ -62,7 +62,21 @@ const oops = require("../assets/images/icons/oops.png");
 const hprofile = require("../assets/images/icons/hprofile.png");
 const menu = require("../assets/images/icons/menu.png");
 const info = require("../assets/images/icons/info.png");
+const namee = require("../assets/images/icons/namee.png");
+const calendar = require("../assets/images/icons/calendar.png");
+const link = require("../assets/images/icons/link.png");
+const emailicon = require("../assets/images/icons/emailicon.png");
 const promote = require("../assets/images/icons/promote.png");
+
+const apay = require("../assets/images/icons/apay.png");
+const amzpay = require("../assets/images/icons/amzpay.png");
+const dc = require("../assets/images/icons/dc.png");
+const poynr = require("../assets/images/icons/poynr.png");
+const gpay = require("../assets/images/icons/gpay.png");
+const paypal = require("../assets/images/icons/paypal.png");
+const visa = require("../assets/images/icons/visa.png");
+const skrill = require("../assets/images/icons/skrill.png");
+const Previewbg = require("../assets/images/icons/Previewbg.png");
 
 const mask = require("../assets/images/icons/mask.png");
 const search = require("../assets/images/icons/search.png");
@@ -75,6 +89,16 @@ export default {
   language,
   favorite,
   location,
+  apay,
+  amzpay,
+  dc,
+  poynr,
+  gpay,
+  paypal,
+  skrill,
+  visa,
+  Previewbg,
+
   adbanner,
   promote,
   house1,
@@ -83,6 +107,10 @@ export default {
   house3,
   home,
   search,
+  namee,
+  emailicon,
+  calendar,
+  link,
   filter,
   homeGrey,
   chat,

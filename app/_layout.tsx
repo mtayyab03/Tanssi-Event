@@ -66,6 +66,25 @@ export default function RootLayout() {
           name="(screens)/Profile/Packages"
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="(screens)/Profile/DanceType"
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="(screens)/Profile/DetailPage"
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="(screens)/Profile/PreviewPage"
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="(screens)/Profile/PaymentMethod"
+          options={{ headerShown: false }}
+        />
 
         <Stack.Screen
           name="modal"
