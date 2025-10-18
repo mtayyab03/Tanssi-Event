@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+import { LinearGradient } from "expo-linear-gradient";
 
 // constants
 import { Colors } from "@/constants/Colors";
@@ -19,28 +20,23 @@ export default function SplashScreen() {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <View style={styles.background}>
+    <LinearGradient
+      colors={[Colors.bgBlue, Colors.bgBlack]}
+      style={styles.background}
+    >
       <Image source={icons.logo} style={styles.logo} resizeMode="contain" />
-      <Text style={styles.title}>
-        <Text style={[styles.title, { fontFamily: FontFamily.semiBold }]}>
-          Finding
-        </Text>
-        {" Real Estate made easy."}
-      </Text>
-    </View>
+    </LinearGradient>
   );
 }
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: Colors.white,
     alignItems: "center",
     justifyContent: "center",
-    padding: 40,
   },
   logo: {
-    width: RFPercentage(20),
-    height: RFPercentage(20),
+    width: RFPercentage(25),
+    height: RFPercentage(25),
     marginBottom: 40,
   },
   title: {

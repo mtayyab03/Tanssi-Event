@@ -38,7 +38,7 @@ const categories = [
   {
     id: "4",
     title: "Brazilian Zouk",
-    image: icons.event12,
+    image: icons.bz,
   },
 ];
 

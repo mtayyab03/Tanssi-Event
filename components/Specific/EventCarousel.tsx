@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useRouter } from "expo-router";
 import {
   View,
   Text,
@@ -8,6 +9,7 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { RFPercentage } from "react-native-responsive-fontsize";
@@ -30,6 +32,7 @@ type Props = {
 };
 
 const EventCarousel: React.FC<Props> = ({ data }) => {
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
 
@@ -55,7 +58,22 @@ const EventCarousel: React.FC<Props> = ({ data }) => {
         decelerationRate="fast"
         contentContainerStyle={{ paddingHorizontal: RFPercentage(1) }}
         renderItem={({ item }) => (
-          <View style={[styles.eventCard, { width: width * 0.85 }]}>
+          <TouchableOpacity
+            onPress={() =>
+              router.push({
+                pathname: "/(screens)/Main/EventDetail",
+                params: {
+                  image: item.image,
+                  title: item.title,
+                  location: item.location,
+                  date: item.date,
+                  description: item.description,
+                },
+              })
+            }
+            activeOpacity={0.7}
+            style={[styles.eventCard, { width: width * 0.85 }]}
+          >
             <Image source={item.image} style={styles.eventImage} />
             <Text style={styles.eventTitle}>{item.title}</Text>
 
@@ -79,7 +97,7 @@ const EventCarousel: React.FC<Props> = ({ data }) => {
                 <Text style={styles.eventText}>{item.date}</Text>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
 

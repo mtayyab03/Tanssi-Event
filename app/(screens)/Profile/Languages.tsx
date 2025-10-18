@@ -30,14 +30,22 @@ const Languages = () => {
   };
 
   const languages = [
-    { id: "1", name: "Spanish", flag: "🇪🇸" },
-    { id: "2", name: "Russian", flag: "🇷🇺" },
-    { id: "3", name: "French", flag: "🇫🇷" },
-    { id: "4", name: "English", flag: "🇬🇧" },
-    { id: "5", name: "Bengali", flag: "🇧🇩" },
-    { id: "6", name: "Hindi", flag: "🇮🇳" },
-    { id: "7", name: "Portuguese", flag: "🇵🇹" },
+    { id: "1", name: "English", flag: "🇬🇧" },
+    { id: "2", name: "French", flag: "🇫🇷" },
+    { id: "3", name: "Spanish", flag: "🇪🇸" },
+    { id: "4", name: "Italian", flag: "🇮🇹" },
+    { id: "5", name: "Portuguese", flag: "🇵🇹" },
+    { id: "6", name: "German", flag: "🇩🇪" },
+    { id: "7", name: "Dutch", flag: "🇳🇱" },
+    { id: "8", name: "Polish", flag: "🇵🇱" },
+    { id: "9", name: "Romanian", flag: "🇷🇴" },
+    { id: "10", name: "Greek", flag: "🇬🇷" },
+    { id: "11", name: "Norwegian", flag: "🇳🇴" },
+    { id: "12", name: "Finnish", flag: "🇫🇮" },
+    { id: "13", name: "Swedish", flag: "🇸🇪" },
+    { id: "14", name: "Danish", flag: "🇩🇰" },
   ];
+
   return (
     <LinearGradient
       colors={[Colors.bgBlue, Colors.bgBlack]}
@@ -65,42 +73,53 @@ const Languages = () => {
         <View style={{ width: "90%", marginTop: RFPercentage(4) }}>
           <Text style={styles.titleText}>Choose your preferred Language</Text>
         </View>
-        {languages.map((lang) => {
-          const isSelected = selectedLang === lang.id;
-          return (
-            <TouchableOpacity
-              key={lang.id}
-              activeOpacity={0.8}
-              style={[
-                styles.langContainer,
-                { borderColor: isSelected ? Colors.purple : Colors.stroke },
-              ]}
-              onPress={() => setSelectedLang(lang.id)}
-            >
-              {/* Flag emoji */}
-              <Text style={styles.flagText}>{lang.flag}</Text>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            paddingBottom: RFPercentage(8),
+            paddingHorizontal: RFPercentage(1),
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          style={{ width: "100%" }}
+        >
+          {languages.map((lang) => {
+            const isSelected = selectedLang === lang.id;
+            return (
+              <TouchableOpacity
+                key={lang.id}
+                activeOpacity={0.8}
+                style={[
+                  styles.langContainer,
+                  { borderColor: isSelected ? Colors.purple : Colors.stroke },
+                ]}
+                onPress={() => setSelectedLang(lang.id)}
+              >
+                {/* Flag emoji */}
+                <Text style={styles.flagText}>{lang.flag}</Text>
 
-              {/* Language name */}
-              <View style={{ marginLeft: RFPercentage(2), width: "70%" }}>
-                <Text
-                  style={[
-                    styles.titleText,
-                    { fontFamily: FontFamily.regular, color: Colors.white },
-                  ]}
-                >
-                  {lang.name}
-                </Text>
-              </View>
-
-              {/* Checkmark only when selected */}
-              {isSelected && (
-                <View style={styles.checkedContainer}>
-                  <FontAwesome6 name="check" size={12} color={Colors.white} />
+                {/* Language name */}
+                <View style={{ marginLeft: RFPercentage(2), width: "70%" }}>
+                  <Text
+                    style={[
+                      styles.titleText,
+                      { fontFamily: FontFamily.regular, color: Colors.white },
+                    ]}
+                  >
+                    {lang.name}
+                  </Text>
                 </View>
-              )}
-            </TouchableOpacity>
-          );
-        })}
+
+                {/* Checkmark only when selected */}
+                {isSelected && (
+                  <View style={styles.checkedContainer}>
+                    <FontAwesome6 name="check" size={12} color={Colors.white} />
+                  </View>
+                )}
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
         {/* button */}
         <TouchableOpacity
           onPress={() => router.push("/(tabs)/Home")}
@@ -159,9 +178,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 1,
-    width: "100%",
+    width: "92%",
     justifyContent: "space-between",
-    paddingHorizontal: 15,
   },
   headerTitle: {
     fontSize: fontSize(16),
@@ -194,7 +212,7 @@ const styles = StyleSheet.create({
     height: 24,
   },
   langContainer: {
-    width: "90%",
+    width: "92%",
     backgroundColor: Colors.primary,
     borderWidth: RFPercentage(0.1),
     borderColor: Colors.purple,

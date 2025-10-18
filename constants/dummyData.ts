@@ -31,6 +31,8 @@ export const eventDataHome = [
     location: "Ottawa, Canada",
     date: "May 24-27, 2024",
     image: icons.event1,
+    description:
+      "Join us for an unforgettable four-day celebration of rhythm, connection, and culture at the Be You Kiz Fest in Ottawa! Experience world-class Kizomba, Semba, and Urban Kiz workshops led by international instructors passionate about helping you grow. Each day features intensive dance sessions, social mixers, and evening parties with top DJs spinning the best Afro-Latin beats.Mingle with dancers from around the world in a warm, inclusive environment that celebrates community and self-expression.Enjoy live performances, showcases, and surprise guest appearances that will keep your energy high and your heart full.",
   },
   {
     id: "2",
@@ -38,6 +40,8 @@ export const eventDataHome = [
     location: "Toronto, Canada",
     date: "June 15-18, 2024",
     image: icons.event8,
+    description:
+      "Join us for an unforgettable four-day celebration of rhythm, connection, and culture at the Be You Kiz Fest in Ottawa! Experience world-class Kizomba, Semba, and Urban Kiz workshops led by international instructors passionate about helping you grow. Each day features intensive dance sessions, social mixers, and evening parties with top DJs spinning the best Afro-Latin beats.Mingle with dancers from around the world in a warm, inclusive environment that celebrates community and self-expression.Enjoy live performances, showcases, and surprise guest appearances that will keep your energy high and your heart full.",
   },
   {
     id: "3",
@@ -45,6 +49,8 @@ export const eventDataHome = [
     location: "Montreal, Canada",
     date: "July 10-13, 2024",
     image: icons.event6,
+    description:
+      "Join us for an unforgettable four-day celebration of rhythm, connection, and culture at the Be You Kiz Fest in Ottawa! Experience world-class Kizomba, Semba, and Urban Kiz workshops led by international instructors passionate about helping you grow. Each day features intensive dance sessions, social mixers, and evening parties with top DJs spinning the best Afro-Latin beats.Mingle with dancers from around the world in a warm, inclusive environment that celebrates community and self-expression.Enjoy live performances, showcases, and surprise guest appearances that will keep your energy high and your heart full.",
   },
 ];
 export const topEventsDataByCategory = {

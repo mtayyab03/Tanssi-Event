@@ -77,6 +77,7 @@ const paypal = require("../assets/images/icons/paypal.png");
 const visa = require("../assets/images/icons/visa.png");
 const skrill = require("../assets/images/icons/skrill.png");
 const Previewbg = require("../assets/images/icons/Previewbg.png");
+const bz = require("../assets/images/icons/bz.jpg");
 
 const mask = require("../assets/images/icons/mask.png");
 const search = require("../assets/images/icons/search.png");
@@ -98,7 +99,7 @@ export default {
   skrill,
   visa,
   Previewbg,
-
+  bz,
   adbanner,
   promote,
   house1,

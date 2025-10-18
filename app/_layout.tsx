@@ -47,6 +47,10 @@ export default function RootLayout() {
           name="(screens)/Main/EventsScreen"
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="(screens)/Main/EventDetail"
+          options={{ headerShown: false }}
+        />
 
         {/* Profile */}
 
