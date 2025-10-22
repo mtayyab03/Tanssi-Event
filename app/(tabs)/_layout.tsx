@@ -37,7 +37,7 @@ export default function TabLayout() {
           if (route.name === "Home")
             iconSrc = focused ? icons.home : icons.homeGrey;
           else if (route.name === "AddEvent")
-            iconSrc = focused ? icons.chat : icons.chatgrey;
+            iconSrc = focused ? icons.eventadd : icons.eventaddGrey;
           else iconSrc = focused ? icons.proficon : icons.proficonGrey;
           return (
             <View style={{ alignItems: "center" }}>

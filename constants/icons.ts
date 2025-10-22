@@ -32,6 +32,8 @@ const send = require("../assets/images/icons/send.png");
 const house1 = require("../assets/images/icons/house1.png");
 const house2 = require("../assets/images/icons/house2.png");
 const house3 = require("../assets/images/icons/house3.png");
+const eventadd = require("../assets/images/icons/eventadd.png");
+const eventaddGrey = require("../assets/images/icons/eventaddGrey.png");
 
 const home = require("../assets/images/icons/home.png");
 const homeGrey = require("../assets/images/icons/homeGrey.png");
@@ -118,6 +120,8 @@ export default {
   chatgrey,
   proficon,
   proficonGrey,
+  eventadd,
+  eventaddGrey,
   event1,
   event2,
   event3,
